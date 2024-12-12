@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "avl.h"
 
-Raiz bst_inserir(Raiz raiz, int novo_valor)
+Raiz avl_inserir(Raiz raiz, int novo_valor)
 {
     if (raiz == NULL)
     {
@@ -14,28 +14,28 @@ Raiz bst_inserir(Raiz raiz, int novo_valor)
     }
     else if (novo_valor > raiz->valor)
     {
-        raiz->folha_dir = bst_inserir(raiz->folha_dir, novo_valor);
+        raiz->folha_dir = avl_inserir(raiz->folha_dir, novo_valor);
     }
     else
     {
-        raiz->folha_esq = bst_inserir(raiz->folha_esq, novo_valor);
+        raiz->folha_esq = avl_inserir(raiz->folha_esq, novo_valor);
     }
     return raiz;
 }
 
 int avl_fator_balanceamento(Raiz raiz){
-    int esquerda = bst_altura(raiz->folha_esq);
-    int direita = bst_altura(raiz->folha_dir);
+    int esquerda = avl_altura(raiz->folha_esq);
+    int direita = avl_altura(raiz->folha_dir);
     return direita - esquerda;
 }
 
-void bst_preorder(Raiz raiz)
+void avl_preorder(Raiz raiz)
 {
     if (raiz != NULL)
     {
         printf("[%d %d]", raiz->valor, avl_fator_balanceamento(raiz));
-        bst_preorder(raiz->folha_esq);
-        bst_preorder(raiz->folha_dir);
+        avl_preorder(raiz->folha_esq);
+        avl_preorder(raiz->folha_dir);
     }
 }
 
@@ -69,7 +69,7 @@ void bst_reverso(Raiz raiz)
     }
 }
 
-int bst_altura(Raiz raiz)
+int avl_altura(Raiz raiz)
 {
     if (raiz == NULL)
     {
@@ -77,8 +77,8 @@ int bst_altura(Raiz raiz)
     }
     else
     {
-        int altura_esq = bst_altura(raiz->folha_esq);
-        int altura_dir = bst_altura(raiz->folha_dir);
+        int altura_esq = avl_altura(raiz->folha_esq);
+        int altura_dir = avl_altura(raiz->folha_dir);
         if (altura_esq > altura_dir)
         {
             {
@@ -164,7 +164,7 @@ Raiz bst_maior_valor(Raiz raiz)
     return temp;
 }
 
-Raiz bst_remover(Raiz raiz, int valor_removido)
+Raiz avl_remover(Raiz raiz, int valor_removido)
 {
      if (raiz == NULL)
     {
@@ -196,17 +196,17 @@ Raiz bst_remover(Raiz raiz, int valor_removido)
         if (raiz->folha_dir != NULL && raiz->folha_esq != NULL)
         {
             raiz->valor = bst_maior_valor(raiz->folha_esq)->valor;
-            raiz->folha_esq = bst_remover(raiz->folha_esq, raiz->valor);
+            raiz->folha_esq = avl_remover(raiz->folha_esq, raiz->valor);
             return raiz;
         }
     }
     else if (valor_removido > raiz->valor)
     {
-        raiz->folha_dir = bst_remover(raiz->folha_dir, valor_removido);
+        raiz->folha_dir = avl_remover(raiz->folha_dir, valor_removido);
     }
     else
     {
-        raiz->folha_esq = bst_remover(raiz->folha_esq, valor_removido);
+        raiz->folha_esq = avl_remover(raiz->folha_esq, valor_removido);
     }
     return raiz;
 }
