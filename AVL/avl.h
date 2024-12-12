@@ -3,6 +3,7 @@
 
 typedef struct no{
     int valor;
+    int fb; // fator de balanco
     struct no *folha_dir;
     struct no *folha_esq;
 } no;

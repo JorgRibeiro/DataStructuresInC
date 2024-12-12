@@ -10,6 +10,7 @@ Raiz avl_inserir(Raiz raiz, int novo_valor)
         novo->valor = novo_valor;
         novo->folha_dir = NULL;
         novo->folha_esq = NULL;
+        novo->fb = 0;
         return novo;
     }
     else if (novo_valor > raiz->valor)
@@ -33,7 +34,7 @@ void avl_preorder(Raiz raiz)
 {
     if (raiz != NULL)
     {
-        printf("[%d %d]", raiz->valor, avl_fator_balanceamento(raiz));
+        printf("[%d %d] {%d}", raiz->valor, avl_fator_balanceamento(raiz),raiz->fb);
         avl_preorder(raiz->folha_esq);
         avl_preorder(raiz->folha_dir);
     }
