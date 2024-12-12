@@ -21,6 +21,7 @@ Raiz avl_inserir(Raiz raiz, int novo_valor)
     {
         raiz->folha_esq = avl_inserir(raiz->folha_esq, novo_valor);
     }
+    raiz = rotacionar(raiz);
     return raiz;
 }
 
@@ -30,11 +31,74 @@ int avl_fator_balanceamento(Raiz raiz){
     return direita - esquerda;
 }
 
+void atualizar_fb(Raiz raiz){
+    if(raiz != NULL){
+        raiz->fb = avl_fator_balanceamento(raiz);
+        atualizar_fb(raiz->folha_dir);
+        atualizar_fb(raiz->folha_esq);
+    }
+}
+
+Raiz rotacionar(Raiz raiz)
+{
+    if (raiz == NULL) return NULL;
+
+    raiz->fb = avl_fator_balanceamento(raiz);
+
+    // Rotação dupla à esquerda
+    if (raiz->fb == 2) {
+        if (raiz->folha_dir->fb < 0) { 
+            raiz->folha_dir = rot_simples_direita(raiz->folha_dir);
+        }
+        raiz = rot_simples_esquerda(raiz);
+    }
+    // Rotação dupla à direita
+    else if (raiz->fb == -2) {
+        if (raiz->folha_esq->fb > 0) { 
+            raiz->folha_esq = rot_simples_esquerda(raiz->folha_esq);
+        }
+        raiz = rot_simples_direita(raiz);
+    }
+
+    return raiz;
+}
+
+Raiz rot_simples_direita(Raiz raiz){
+
+    Raiz pai, dir, esq;
+    pai = raiz;
+    esq = raiz->folha_esq;
+    dir = raiz->folha_esq->folha_dir;
+
+    esq->folha_dir = pai;
+    pai->folha_esq = dir;
+    
+    atualizar_fb(esq);
+
+    return esq;
+
+}
+
+Raiz rot_simples_esquerda(Raiz raiz){
+    Raiz pai, dir, esq;
+    pai = raiz;
+    dir = raiz->folha_dir;
+    esq = raiz->folha_dir->folha_esq;
+
+    dir->folha_esq = pai;
+    pai->folha_dir = esq;
+
+    atualizar_fb(dir);
+
+    return dir;
+
+}
+
 void avl_preorder(Raiz raiz)
 {
     if (raiz != NULL)
     {
-        printf("[%d %d] {%d}", raiz->valor, avl_fator_balanceamento(raiz),raiz->fb);
+        printf("[%d %d]", raiz->valor, raiz->fb);
         avl_preorder(raiz->folha_esq);
         avl_preorder(raiz->folha_dir);
     }
@@ -198,6 +262,8 @@ Raiz avl_remover(Raiz raiz, int valor_removido)
         {
             raiz->valor = bst_maior_valor(raiz->folha_esq)->valor;
             raiz->folha_esq = avl_remover(raiz->folha_esq, raiz->valor);
+            atualizar_fb(raiz);
+            raiz = rotacionar(raiz);
             return raiz;
         }
     }
@@ -209,5 +275,7 @@ Raiz avl_remover(Raiz raiz, int valor_removido)
     {
         raiz->folha_esq = avl_remover(raiz->folha_esq, valor_removido);
     }
+    atualizar_fb(raiz);
+    raiz = rotacionar(raiz);
     return raiz;
 }

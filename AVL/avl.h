@@ -15,6 +15,13 @@ typedef no * Raiz;
 Raiz avl_inserir (Raiz raiz, int novo_valor);
 
 int avl_fator_balanceamento(Raiz raiz);
+void atualizar_fb(Raiz raiz);
+
+Raiz rotacionar(Raiz raiz);
+
+Raiz rot_simples_direita(Raiz raiz);
+Raiz rot_simples_esquerda(Raiz raiz);
+
 
 void avl_preorder(Raiz raiz);
 
