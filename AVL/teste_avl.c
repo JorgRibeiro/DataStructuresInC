@@ -23,6 +23,7 @@ int main(int argc, char * argv[]) {
            case 3:
                 scanf("%d", &valor);
                 arvore = avl_remover(arvore, valor);
+                printf("\n");
                 break;
             case 99:
                 exit(0);
