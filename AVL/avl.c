@@ -8,34 +8,34 @@ Raiz avl_inserir(Raiz raiz, int novo_valor)
     {
         Raiz novo = (Raiz)malloc(sizeof(no));
         novo->valor = novo_valor;
-        novo->folha_dir = NULL;
-        novo->folha_esq = NULL;
+        novo->raiz_dir = NULL;
+        novo->raiz_esq = NULL;
         novo->fb = 0;
         return novo;
     }
     else if (novo_valor > raiz->valor)
     {
-        raiz->folha_dir = avl_inserir(raiz->folha_dir, novo_valor);
+        raiz->raiz_dir = avl_inserir(raiz->raiz_dir, novo_valor);
     }
     else
     {
-        raiz->folha_esq = avl_inserir(raiz->folha_esq, novo_valor);
+        raiz->raiz_esq = avl_inserir(raiz->raiz_esq, novo_valor);
     }
     raiz = rotacionar(raiz);
     return raiz;
 }
 
 int avl_fator_balanceamento(Raiz raiz){
-    int esquerda = avl_altura(raiz->folha_esq);
-    int direita = avl_altura(raiz->folha_dir);
+    int esquerda = avl_altura(raiz->raiz_esq);
+    int direita = avl_altura(raiz->raiz_dir);
     return direita - esquerda;
 }
 
 void atualizar_fb(Raiz raiz){
     if(raiz != NULL){
         raiz->fb = avl_fator_balanceamento(raiz);
-        atualizar_fb(raiz->folha_dir);
-        atualizar_fb(raiz->folha_esq);
+        atualizar_fb(raiz->raiz_dir);
+        atualizar_fb(raiz->raiz_esq);
     }
 }
 
@@ -47,15 +47,15 @@ Raiz rotacionar(Raiz raiz)
 
     // Rotação dupla à esquerda
     if (raiz->fb == 2) {
-        if (raiz->folha_dir->fb < 0) { 
-            raiz->folha_dir = rot_simples_direita(raiz->folha_dir);
+        if (raiz->raiz_dir->fb < 0) { 
+            raiz->raiz_dir = rot_simples_direita(raiz->raiz_dir);
         }
         raiz = rot_simples_esquerda(raiz);
     }
     // Rotação dupla à direita
     else if (raiz->fb == -2) {
-        if (raiz->folha_esq->fb > 0) { 
-            raiz->folha_esq = rot_simples_esquerda(raiz->folha_esq);
+        if (raiz->raiz_esq->fb > 0) { 
+            raiz->raiz_esq = rot_simples_esquerda(raiz->raiz_esq);
         }
         raiz = rot_simples_direita(raiz);
     }
@@ -67,11 +67,11 @@ Raiz rot_simples_direita(Raiz raiz){
 
     Raiz pai, dir, esq;
     pai = raiz;
-    esq = raiz->folha_esq;
-    dir = raiz->folha_esq->folha_dir;
+    esq = raiz->raiz_esq;
+    dir = raiz->raiz_esq->raiz_dir;
 
-    esq->folha_dir = pai;
-    pai->folha_esq = dir;
+    esq->raiz_dir = pai;
+    pai->raiz_esq = dir;
     
     atualizar_fb(esq);
 
@@ -82,11 +82,11 @@ Raiz rot_simples_direita(Raiz raiz){
 Raiz rot_simples_esquerda(Raiz raiz){
     Raiz pai, dir, esq;
     pai = raiz;
-    dir = raiz->folha_dir;
-    esq = raiz->folha_dir->folha_esq;
+    dir = raiz->raiz_dir;
+    esq = raiz->raiz_dir->raiz_esq;
 
-    dir->folha_esq = pai;
-    pai->folha_dir = esq;
+    dir->raiz_esq = pai;
+    pai->raiz_dir = esq;
 
     atualizar_fb(dir);
 
@@ -99,38 +99,38 @@ void avl_preorder(Raiz raiz)
     if (raiz != NULL)
     {
         printf("[%d %d]", raiz->valor, raiz->fb);
-        avl_preorder(raiz->folha_esq);
-        avl_preorder(raiz->folha_dir);
+        avl_preorder(raiz->raiz_esq);
+        avl_preorder(raiz->raiz_dir);
     }
 }
 
-void bst_inorder(Raiz raiz)
+void avl_inorder(Raiz raiz)
 {
     if (raiz != NULL)
     {
-        bst_inorder(raiz->folha_esq);
+        avl_inorder(raiz->raiz_esq);
         printf("[%d]", raiz->valor);
-        bst_inorder(raiz->folha_dir);
+        avl_inorder(raiz->raiz_dir);
     }
 }
 
-void bst_posorder(Raiz raiz)
+void avl_posorder(Raiz raiz)
 {
     if (raiz != NULL)
     {
-        bst_posorder(raiz->folha_esq);
-        bst_posorder(raiz->folha_dir);
+        avl_posorder(raiz->raiz_esq);
+        avl_posorder(raiz->raiz_dir);
         printf("[%d]", raiz->valor);
     }
 }
 
-void bst_reverso(Raiz raiz)
+void avl_reverso(Raiz raiz)
 {
     if (raiz != NULL)
     {
-        bst_reverso(raiz->folha_dir);
+        avl_reverso(raiz->raiz_dir);
         printf("[%d]", raiz->valor);
-        bst_reverso(raiz->folha_esq);
+        avl_reverso(raiz->raiz_esq);
     }
 }
 
@@ -142,8 +142,8 @@ int avl_altura(Raiz raiz)
     }
     else
     {
-        int altura_esq = avl_altura(raiz->folha_esq);
-        int altura_dir = avl_altura(raiz->folha_dir);
+        int altura_esq = avl_altura(raiz->raiz_esq);
+        int altura_dir = avl_altura(raiz->raiz_dir);
         if (altura_esq > altura_dir)
         {
             {
@@ -157,13 +157,13 @@ int avl_altura(Raiz raiz)
     }
 }
 
-int bst_quant_folhas(Raiz raiz)
+int avl_quant_folhas(Raiz raiz)
 {
     if (raiz != NULL)
     {
-        int folhas = bst_quant_folhas(raiz->folha_dir);
-        folhas = folhas + bst_quant_folhas(raiz->folha_esq);
-        if (raiz->folha_dir == NULL && raiz->folha_esq == NULL)
+        int folhas = avl_quant_folhas(raiz->raiz_dir);
+        folhas = folhas + avl_quant_folhas(raiz->raiz_esq);
+        if (raiz->raiz_dir == NULL && raiz->raiz_esq == NULL)
         {
             return folhas + 1;
         }
@@ -174,23 +174,23 @@ int bst_quant_folhas(Raiz raiz)
     return 0;
 }
 
-void bst_caminho(Raiz raiz, int chave)
+void avl_caminho(Raiz raiz, int chave)
 {
     if (raiz->valor < chave)
     {
         printf("[%d]", raiz->valor);
-        bst_caminho(raiz->folha_dir, chave);
+        avl_caminho(raiz->raiz_dir, chave);
     }
     else if (raiz->valor > chave)
     {
         printf("[%d]", raiz->valor);
-        bst_caminho(raiz->folha_esq, chave);
+        avl_caminho(raiz->raiz_esq, chave);
     }
     else
         (printf("[%d]", raiz->valor));
 }
 
-int bst_valida_caminho(Raiz raiz, int chave)
+int avl_valida_caminho(Raiz raiz, int chave)
 {
      if (raiz == NULL)
     {
@@ -199,11 +199,11 @@ int bst_valida_caminho(Raiz raiz, int chave)
 
     if (raiz->valor < chave)
     {
-        return bst_valida_caminho(raiz->folha_dir, chave);
+        return avl_valida_caminho(raiz->raiz_dir, chave);
     }
     else if (raiz->valor > chave)
     {
-        return bst_valida_caminho(raiz->folha_esq, chave);
+        return avl_valida_caminho(raiz->raiz_esq, chave);
     }
     else if (raiz->valor == chave)
     {
@@ -213,7 +213,7 @@ int bst_valida_caminho(Raiz raiz, int chave)
     return 0;
 }
 
-Raiz bst_maior_valor(Raiz raiz)
+Raiz avl_maior_valor(Raiz raiz)
 {
     Raiz temp = raiz;
     if (raiz == NULL)
@@ -221,9 +221,9 @@ Raiz bst_maior_valor(Raiz raiz)
         return NULL;
     }
 
-    while (temp->folha_dir != NULL)
+    while (temp->raiz_dir != NULL)
     {
-        temp = temp->folha_dir;
+        temp = temp->raiz_dir;
     }
 
     return temp;
@@ -238,30 +238,30 @@ Raiz avl_remover(Raiz raiz, int valor_removido)
     else if (raiz->valor == valor_removido)
     {
 
-        if (raiz->folha_dir == NULL && raiz->folha_esq == NULL)
+        if (raiz->raiz_dir == NULL && raiz->raiz_esq == NULL)
         {
             free(raiz);
             return NULL;
         }
 
-        if (raiz->folha_dir != NULL && raiz->folha_esq == NULL)
+        if (raiz->raiz_dir != NULL && raiz->raiz_esq == NULL)
         {
-            Raiz aux = raiz->folha_dir;
+            Raiz aux = raiz->raiz_dir;
             free(raiz);
             return aux;
         }
 
-        if (raiz->folha_dir == NULL && raiz->folha_esq != NULL)
+        if (raiz->raiz_dir == NULL && raiz->raiz_esq != NULL)
         {
-            Raiz aux = raiz->folha_esq;
+            Raiz aux = raiz->raiz_esq;
             free(raiz);
             return aux;
         }
 
-        if (raiz->folha_dir != NULL && raiz->folha_esq != NULL)
+        if (raiz->raiz_dir != NULL && raiz->raiz_esq != NULL)
         {
-            raiz->valor = bst_maior_valor(raiz->folha_esq)->valor;
-            raiz->folha_esq = avl_remover(raiz->folha_esq, raiz->valor);
+            raiz->valor = avl_maior_valor(raiz->raiz_esq)->valor;
+            raiz->raiz_esq = avl_remover(raiz->raiz_esq, raiz->valor);
             atualizar_fb(raiz);
             raiz = rotacionar(raiz);
             return raiz;
@@ -269,11 +269,11 @@ Raiz avl_remover(Raiz raiz, int valor_removido)
     }
     else if (valor_removido > raiz->valor)
     {
-        raiz->folha_dir = avl_remover(raiz->folha_dir, valor_removido);
+        raiz->raiz_dir = avl_remover(raiz->raiz_dir, valor_removido);
     }
     else
     {
-        raiz->folha_esq = avl_remover(raiz->folha_esq, valor_removido);
+        raiz->raiz_esq = avl_remover(raiz->raiz_esq, valor_removido);
     }
     atualizar_fb(raiz);
     raiz = rotacionar(raiz);

@@ -8,17 +8,17 @@ Raiz bst_inserir(Raiz raiz, int novo_valor)
     {
         Raiz novo = (Raiz)malloc(sizeof(no));
         novo->valor = novo_valor;
-        novo->folha_dir = NULL;
-        novo->folha_esq = NULL;
+        novo->raiz_dir = NULL;
+        novo->raiz_esq = NULL;
         return novo;
     }
     else if (novo_valor > raiz->valor)
     {
-        raiz->folha_dir = bst_inserir(raiz->folha_dir, novo_valor);
+        raiz->raiz_dir = bst_inserir(raiz->raiz_dir, novo_valor);
     }
     else
     {
-        raiz->folha_esq = bst_inserir(raiz->folha_esq, novo_valor);
+        raiz->raiz_esq = bst_inserir(raiz->raiz_esq, novo_valor);
     }
     return raiz;
 }
@@ -28,8 +28,8 @@ void bst_preorder(Raiz raiz)
     if (raiz != NULL)
     {
         printf("[%d]", raiz->valor);
-        bst_preorder(raiz->folha_esq);
-        bst_preorder(raiz->folha_dir);
+        bst_preorder(raiz->raiz_esq);
+        bst_preorder(raiz->raiz_dir);
     }
 }
 
@@ -37,9 +37,9 @@ void bst_inorder(Raiz raiz)
 {
     if (raiz != NULL)
     {
-        bst_inorder(raiz->folha_esq);
+        bst_inorder(raiz->raiz_esq);
         printf("[%d]", raiz->valor);
-        bst_inorder(raiz->folha_dir);
+        bst_inorder(raiz->raiz_dir);
     }
 }
 
@@ -47,8 +47,8 @@ void bst_posorder(Raiz raiz)
 {
     if (raiz != NULL)
     {
-        bst_posorder(raiz->folha_esq);
-        bst_posorder(raiz->folha_dir);
+        bst_posorder(raiz->raiz_esq);
+        bst_posorder(raiz->raiz_dir);
         printf("[%d]", raiz->valor);
     }
 }
@@ -57,9 +57,9 @@ void bst_reverso(Raiz raiz)
 {
     if (raiz != NULL)
     {
-        bst_reverso(raiz->folha_dir);
+        bst_reverso(raiz->raiz_dir);
         printf("[%d]", raiz->valor);
-        bst_reverso(raiz->folha_esq);
+        bst_reverso(raiz->raiz_esq);
     }
 }
 
@@ -71,8 +71,8 @@ int bst_altura(Raiz raiz)
     }
     else
     {
-        int altura_esq = bst_altura(raiz->folha_esq);
-        int altura_dir = bst_altura(raiz->folha_dir);
+        int altura_esq = bst_altura(raiz->raiz_esq);
+        int altura_dir = bst_altura(raiz->raiz_dir);
         if (altura_esq > altura_dir)
         {
             {
@@ -90,9 +90,9 @@ int bst_quant_folhas(Raiz raiz)
 {
     if (raiz != NULL)
     {
-        int folhas = bst_quant_folhas(raiz->folha_dir);
-        folhas = folhas + bst_quant_folhas(raiz->folha_esq);
-        if (raiz->folha_dir == NULL && raiz->folha_esq == NULL)
+        int folhas = bst_quant_folhas(raiz->raiz_dir);
+        folhas = folhas + bst_quant_folhas(raiz->raiz_esq);
+        if (raiz->raiz_dir == NULL && raiz->raiz_esq == NULL)
         {
             return folhas + 1;
         }
@@ -108,12 +108,12 @@ void bst_caminho(Raiz raiz, int chave)
     if (raiz->valor < chave)
     {
         printf("[%d]", raiz->valor);
-        bst_caminho(raiz->folha_dir, chave);
+        bst_caminho(raiz->raiz_dir, chave);
     }
     else if (raiz->valor > chave)
     {
         printf("[%d]", raiz->valor);
-        bst_caminho(raiz->folha_esq, chave);
+        bst_caminho(raiz->raiz_esq, chave);
     }
     else
         (printf("[%d]", raiz->valor));
@@ -128,11 +128,11 @@ int bst_valida_caminho(Raiz raiz, int chave)
 
     if (raiz->valor < chave)
     {
-        return bst_valida_caminho(raiz->folha_dir, chave);
+        return bst_valida_caminho(raiz->raiz_dir, chave);
     }
     else if (raiz->valor > chave)
     {
-        return bst_valida_caminho(raiz->folha_esq, chave);
+        return bst_valida_caminho(raiz->raiz_esq, chave);
     }
     else if (raiz->valor == chave)
     {
@@ -150,9 +150,9 @@ Raiz bst_maior_valor(Raiz raiz)
         return NULL;
     }
 
-    while (temp->folha_dir != NULL)
+    while (temp->raiz_dir != NULL)
     {
-        temp = temp->folha_dir;
+        temp = temp->raiz_dir;
     }
 
     return temp;
@@ -167,40 +167,40 @@ Raiz bst_remover(Raiz raiz, int valor_removido)
     else if (raiz->valor == valor_removido)
     {
 
-        if (raiz->folha_dir == NULL && raiz->folha_esq == NULL)
+        if (raiz->raiz_dir == NULL && raiz->raiz_esq == NULL)
         {
             free(raiz);
             return NULL;
         }
 
-        if (raiz->folha_dir != NULL && raiz->folha_esq == NULL)
+        if (raiz->raiz_dir != NULL && raiz->raiz_esq == NULL)
         {
-            Raiz aux = raiz->folha_dir;
+            Raiz aux = raiz->raiz_dir;
             free(raiz);
             return aux;
         }
 
-        if (raiz->folha_dir == NULL && raiz->folha_esq != NULL)
+        if (raiz->raiz_dir == NULL && raiz->raiz_esq != NULL)
         {
-            Raiz aux = raiz->folha_esq;
+            Raiz aux = raiz->raiz_esq;
             free(raiz);
             return aux;
         }
 
-        if (raiz->folha_dir != NULL && raiz->folha_esq != NULL)
+        if (raiz->raiz_dir != NULL && raiz->raiz_esq != NULL)
         {
-            raiz->valor = bst_maior_valor(raiz->folha_esq)->valor;
-            raiz->folha_esq = bst_remover(raiz->folha_esq, raiz->valor);
+            raiz->valor = bst_maior_valor(raiz->raiz_esq)->valor;
+            raiz->raiz_esq = bst_remover(raiz->raiz_esq, raiz->valor);
             return raiz;
         }
     }
     else if (valor_removido > raiz->valor)
     {
-        raiz->folha_dir = bst_remover(raiz->folha_dir, valor_removido);
+        raiz->raiz_dir = bst_remover(raiz->raiz_dir, valor_removido);
     }
     else
     {
-        raiz->folha_esq = bst_remover(raiz->folha_esq, valor_removido);
+        raiz->raiz_esq = bst_remover(raiz->raiz_esq, valor_removido);
     }
     return raiz;
 }

@@ -6,6 +6,7 @@ int main(int argc, char * argv[]) {
     //Declarar uma variável do tipo árvore e inicializar como uma árvore vazia
     Raiz arvore = NULL;
     
+    //Usando um While true para fazer um menu com switch
     while(1) {
         int opcao;
         int valor;

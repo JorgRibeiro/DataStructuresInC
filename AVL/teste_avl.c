@@ -3,9 +3,10 @@
 #include "avl.h"
 
 int main(int argc, char * argv[]) {
-    Raiz arvore;
-    arvore = NULL;
+    //Declarar uma variável do tipo árvore e inicializar como uma árvore vazia
+    Raiz arvore = NULL;
     
+    //Usando um While true para fazer um menu com switch
     while(1) {
         int opcao;
         int valor;
@@ -25,7 +26,6 @@ int main(int argc, char * argv[]) {
            //Remover
                 scanf("%d", &valor);
                 arvore = avl_remover(arvore, valor);
-                printf("\n");
                 break;
             case 99:
             //Sair
