@@ -39,12 +39,12 @@ int main(int argc, char * argv[]) {
                 break;
             case 6:
             //Altura
-                printf("%d\n",bst_altura(arvore));
+                printf("%d",bst_altura(arvore));
                 printf("\n");
                 break;
             case 7:
             //Quantidade de folhas de uma arvore
-                printf("%d\n",bst_quant_folhas(arvore));
+                printf("%d",bst_quant_folhas(arvore));
                 printf("\n");
                 break;
             case 8:
@@ -59,7 +59,6 @@ int main(int argc, char * argv[]) {
             //Remover
                 scanf("%d", &valor);
                 arvore = bst_remover(arvore, valor);
-                printf("\n");
                 break;
             case 99:
             //sair
