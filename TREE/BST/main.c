@@ -18,37 +18,37 @@ int main(int argc, char * argv[]) {
                 arvore = bst_inserir(arvore, valor);
                 break;
             case 2:
-            //Pre-order
+            //Pre-order - Raiz, Esquerda, Direita
                 bst_preorder(arvore); 
                 printf("\n");
                 break;
            case 3:
-           //In-order
+           //In-order - Esquerda, Raiz, Direita
                 bst_inorder(arvore); 
                 printf("\n");
                 break;
             case 4:
-            //Pos-order
+            //Pos-order - Esquerda, Direita, Raiz
                 bst_posorder(arvore); 
                 printf("\n");
                 break;
             case 5:
-            //Reverso
+            //Reverso - Direita, Raiz, Esquerda
                 bst_reverso(arvore); 
                 printf("\n");
                 break;
             case 6:
-            //Altura
+            //Altura - percorre os dois lados de uma Raiz
                 printf("%d",bst_altura(arvore));
                 printf("\n");
                 break;
             case 7:
-            //Quantidade de folhas de uma arvore
+            //Quantidade de folhas de uma arvore - nó sem filhos
                 printf("%d",bst_quant_folhas(arvore));
                 printf("\n");
                 break;
             case 8:
-            //Caminho até uma raiz
+            //Caminho até um nó especifico
                 scanf("%d", &valor);
                 if(bst_valida_caminho(arvore,valor) == 1){
                     bst_caminho(arvore, valor);    

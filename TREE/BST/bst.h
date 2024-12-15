@@ -26,6 +26,7 @@ void bst_caminho(Raiz raiz, int chave);             // Faz o caminho até o valo
 int bst_valida_caminho(Raiz raiz, int chave);       // Verifica se o valor escolhido esta em na arvore
 
 Raiz bst_maior_valor(Raiz raiz);                    // procura o maior valor de uma arvore
+Raiz bst_menor_valor(Raiz raiz);                    // procura o menor valor de uma arvore
 Raiz bst_remover (Raiz raiz, int valor_removido);   // remove o valor de uma arvore
 
 #endif

@@ -158,6 +158,22 @@ Raiz bst_maior_valor(Raiz raiz)
     return temp;
 }
 
+Raiz bst_menor_valor(Raiz raiz)
+{
+    Raiz temp = raiz;
+    if (raiz == NULL)
+    {
+        return NULL;
+    }
+
+    while (temp->raiz_esq != NULL)
+    {
+        temp = temp->raiz_esq;
+    }
+
+    return temp;
+}
+
 Raiz bst_remover(Raiz raiz, int valor_removido)
 {
      if (raiz == NULL)
