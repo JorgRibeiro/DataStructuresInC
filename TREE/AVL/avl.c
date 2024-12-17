@@ -146,9 +146,7 @@ int avl_altura(Raiz raiz)
         int altura_dir = avl_altura(raiz->raiz_dir);
         if (altura_esq > altura_dir)
         {
-            {
-                return altura_esq + 1;
-            }
+            return altura_esq + 1;
         }
         else
         {
