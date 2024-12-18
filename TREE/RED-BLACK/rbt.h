@@ -1,5 +1,5 @@
-#ifndef RBT.H
-#define RBT.H
+#ifndef RBT_H
+#define RBT_H
 
 typedef struct no
 {
