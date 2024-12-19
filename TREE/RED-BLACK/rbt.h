@@ -3,11 +3,10 @@
 
 typedef struct no
 {
-    int valor;
-    char cor = 'red';
-    struct rbt *raiz_dir;
-    struct rbt *raiz_esq;
-    
+    int chave;
+    char cor;
+    struct no *raiz_esq;
+    struct no *raiz_dir;
 }no;
 
 typedef no * Raiz;
