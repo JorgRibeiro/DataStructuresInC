@@ -12,8 +12,7 @@ typedef struct no
 
 typedef no * Raiz;
 
-Raiz rbt_inicializar(Raiz raiz, int valor);     // Inicializa a Raiz com a cor = Preta e o Pai = NULL
-Raiz rbt_inserir(Raiz raiz, int valor);         // Insere um novo nó vermelho para a arvore
+Raiz rbt_inserir(Raiz raiz, int valor);         // Inicializa a Raiz com a cor = Preta ou insere um novo nó vermelho para a arvore
 
 void rbt_preorder(Raiz raiz);                   // Printa os valores na ordem: Raiz->Esquerda->Direita
 void rbt_inorder(Raiz raiz);                    // Printa os valores na ordem: Esquerda->Raiz->Direita

@@ -15,12 +15,7 @@ int main(int argc, char * argv[]) {
             //Inserir
             case 1:
                 scanf("%d", &valor);
-
-                if(arvore == NULL)
-                arvore = rbt_inicializar(arvore, valor);
-                else
                 arvore = rbt_inserir(arvore, valor);
-
                 break;
             case 2:
             //Pre-order
