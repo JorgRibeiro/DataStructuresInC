@@ -4,7 +4,7 @@
 
 Raiz rbt_inserir(Raiz raiz, int novo_valor)
 {
-    if (raiz == NULL)                                       // Se a arvore for vazia, Inicializa a raiz
+    if (raiz == NULL) {                                      // Se a arvore for vazia, Inicializa a raiz
         Raiz novo = (Raiz)malloc(sizeof(no));
         novo->chave = novo_valor;
         novo->cor = 'b';                                    // Define a cor da raiz como PRETA
