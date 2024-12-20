@@ -128,5 +128,30 @@ void rbt_info(Raiz raiz, int valor)
 
 Raiz rbt_remover(Raiz raiz, int valor_removido)
 {
+    if(raiz != NULL){
+        if(valor_removido > raiz->chave){
+            raiz->raiz_dir = rbt_remover(raiz->raiz_dir, valor_removido);
+        } else if(valor_removido < raiz->chave){
+            raiz->raiz_esq = rbt_remover(raiz->raiz_esq, valor_removido);
+        } else {
+            if(raiz->raiz_dir == NULL && raiz->raiz_esq == NULL){
+                free(raiz);
+                return NULL;
+            } else if(raiz->raiz_dir != NULL && raiz->raiz_esq == NULL){
+                raiz->raiz_dir->raiz_pai = raiz->raiz_pai;
+                Raiz temp = raiz->raiz_dir;
+                free(raiz);
+                return temp;
+            } else if(raiz->raiz_dir == NULL && raiz->raiz_esq != NULL){
+                raiz->raiz_esq->raiz_pai = raiz->raiz_pai;
+                Raiz temp = raiz->raiz_esq;
+                free(raiz);
+                return temp;
+            }
+
+
+        }
+
+    }
     return raiz;
 }

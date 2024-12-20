@@ -43,11 +43,8 @@ int main(int argc, char * argv[]) {
                 rbt_info(arvore, valor); 
                 break;
             case 7:
-           //Remover
-                
                 break;
             case 8:
-           //Remover
                 break;
             case 9:
            //Remover
