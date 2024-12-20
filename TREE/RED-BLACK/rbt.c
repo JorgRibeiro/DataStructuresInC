@@ -48,12 +48,20 @@ Raiz rbt_inserir(Raiz raiz, int novo_valor)
             raiz->raiz_esq = rbt_inserir(raiz->raiz_esq, novo_valor); // Ele vai continuar a busca, ate um no vazio
         }
     }
-
+    raiz = rbt_ajuste(raiz);
     return raiz;
 }
 
 Raiz rbt_ajuste(Raiz raiz)
 {
+     if (raiz->raiz_dir != NULL && raiz->cor == 'r' && raiz->raiz_dir->cor == 'r') {
+        raiz->cor = 'b';
+    }
+
+    if (raiz->raiz_esq != NULL && raiz->cor == 'r' && raiz->raiz_esq->cor == 'r') {
+        raiz->cor = 'b';
+    }
+
     return raiz;
 }
 
@@ -198,9 +206,11 @@ Raiz rbt_remover(Raiz raiz, int valor_removido)
             {
                 raiz->chave = rbt_maior_valor(raiz->raiz_esq)->chave;
                 raiz->raiz_esq = rbt_remover(raiz->raiz_esq, raiz->chave);
+                raiz = rbt_ajuste(raiz);
                 return raiz;
             }
         }
     }
+    raiz = rbt_ajuste(raiz);
     return raiz;
 }
