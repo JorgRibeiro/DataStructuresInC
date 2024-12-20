@@ -21,6 +21,7 @@ void rbt_reverso(Raiz raiz);                    // Printa os valores na ordem: D
 
 void rbt_info(Raiz raiz, int valor);            // Mostra todas as informações de um no
 
-Raiz rbt_remover (Raiz raiz, int valor_removido);
+Raiz rbt_maior_valor (Raiz raiz);                             // Procura o maior valor da arvore
+Raiz rbt_remover (Raiz raiz, int valor_removido);       // Remove um no da arvore
 
 #endif

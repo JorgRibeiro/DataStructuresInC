@@ -126,6 +126,17 @@ void rbt_info(Raiz raiz, int valor)
     }
 }
 
+Raiz rbt_maior_valor(Raiz raiz){
+    if(raiz!= NULL){
+        Raiz procura = raiz;
+        while(procura->raiz_dir != NULL){
+            procura = procura->raiz_dir;
+        }
+        return procura;
+    }
+    return raiz;
+}
+
 Raiz rbt_remover(Raiz raiz, int valor_removido)
 {
     if(raiz != NULL){
@@ -147,6 +158,10 @@ Raiz rbt_remover(Raiz raiz, int valor_removido)
                 Raiz temp = raiz->raiz_esq;
                 free(raiz);
                 return temp;
+            } else{
+                raiz->chave = rbt_maior_valor(raiz->raiz_esq)->chave;
+                raiz->raiz_esq = rbt_remover(raiz->raiz_esq, raiz->chave);
+                return raiz;
             }
 
 

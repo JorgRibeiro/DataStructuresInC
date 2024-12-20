@@ -1,26 +1,4 @@
-[20 b][10 r][5 r][30 r][40 r]
-[20 b][10 r][5 r][30 r][40 r][50 r]
----- INFO ----
-Valor: 30
-Cor: r
-Direito: 40
-Esquerdo: NULL
-Pai: 20
----- INFO ----
-Valor: 50
-Cor: r
-Direito: NULL
-Esquerdo: NULL
-Pai: 40
----- INFO ----
-Valor: 20
-Cor: b
-Direito: 30
-Esquerdo: 10
-Pai: NULL
----- INFO ----
-Valor: 10
-Cor: r
-Direito: NULL
-Esquerdo: 5
-Pai: 20
+[50 b][100 r]
+[50 b][100 r][250 r]
+[50 b][40 r][25 r][45 r][100 r][60 r][250 r]
+[45 b][40 r][25 r][100 r][60 r][250 r]
