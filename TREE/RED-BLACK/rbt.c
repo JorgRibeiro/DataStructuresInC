@@ -54,7 +54,7 @@ Raiz rbt_inserir(Raiz raiz, int novo_valor)
 
 Raiz rbt_ajuste(Raiz raiz)
 {
-     if (raiz->raiz_dir != NULL && raiz->cor == 'r' && raiz->raiz_dir->cor == 'r') {
+    if (raiz->raiz_dir != NULL && raiz->cor == 'r' && raiz->raiz_dir->cor == 'r') {
         raiz->cor = 'b';
     }
 
@@ -65,19 +65,24 @@ Raiz rbt_ajuste(Raiz raiz)
     return raiz;
 }
 
-int rbt_quant_preto(Raiz raiz)
+int rbt_quant_no_preto(Raiz raiz)
 {
-    if (raiz != NULL)
-    {
-        return rbt_quant_preto(raiz->raiz_dir) - rbt_quant_preto(raiz->raiz_esq);
-        if(raiz->cor == 'b'){
-            return 1;
-        } else {
-            return 0;
-        }
+    if (raiz == NULL) {
+        return 0; 
     }
-    return 0;
+
+    int altura_esq = rbt_quant_no_preto(raiz->raiz_esq);
+    int altura_dir = rbt_quant_no_preto(raiz->raiz_dir);
+
+    int maior_caminho = (altura_esq > altura_dir) ? altura_esq : altura_dir;
+
+    if (raiz->cor == 'b') {
+        return maior_caminho + 1; 
+    }
+
+    return maior_caminho; 
 }
+
 
 void rbt_preorder(Raiz raiz)
 {
@@ -150,7 +155,7 @@ void rbt_info(Raiz raiz, int valor)
                 printf("Pai: NULL\n");
             else
                 printf("Pai: %d\n", raiz->raiz_pai->chave);
-            printf("Quantidade de nos pretos: %d\n",rbt_quant_preto(raiz));
+            printf("Quant de nos pretos: %d\n", rbt_quant_no_preto(raiz->raiz_dir) + rbt_quant_no_preto(raiz->raiz_esq));
         }
     }
 }

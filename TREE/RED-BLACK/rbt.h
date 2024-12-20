@@ -14,8 +14,8 @@ typedef no * Raiz;
 
 Raiz rbt_inserir(Raiz raiz, int valor);         // Inicializa a Raiz com a cor = Preta ou insere um novo nó vermelho para a arvore
 
-Raiz rbt_ajuste(Raiz Raiz);
-int rbt_quant_preto(Raiz raiz);
+Raiz rbt_ajuste(Raiz raiz);
+int rbt_quant_no_preto(Raiz raiz);
 
 void rbt_preorder(Raiz raiz);                   // Printa os valores na ordem: Raiz->Esquerda->Direita
 void rbt_inorder(Raiz raiz);                    // Printa os valores na ordem: Esquerda->Raiz->Direita
