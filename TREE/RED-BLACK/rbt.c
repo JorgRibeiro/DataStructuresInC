@@ -54,13 +54,17 @@ Raiz rbt_inserir(Raiz raiz, int novo_valor)
 
 Raiz rbt_ajuste(Raiz raiz)
 {
-    if (raiz->raiz_dir != NULL && raiz->cor == 'r' && raiz->raiz_dir->cor == 'r') {
+  if(raiz->cor == 'r' && raiz->raiz_dir != NULL && raiz->raiz_dir->cor == 'r'){
+    if(raiz->raiz_pai->raiz_esq != NULL && raiz->raiz_pai->raiz_esq->cor == 'r'){
         raiz->cor = 'b';
+        raiz->raiz_pai->raiz_esq->cor = 'b';
+        if(raiz->raiz_pai->raiz_pai != NULL){
+            raiz->cor = 'r';
+        }
+    } else if(raiz->raiz_pai->raiz_esq != NULL && raiz->raiz_pai->raiz_esq->cor == 'b'){
+        
     }
-
-    if (raiz->raiz_esq != NULL && raiz->cor == 'r' && raiz->raiz_esq->cor == 'r') {
-        raiz->cor = 'b';
-    }
+  }
 
     return raiz;
 }
