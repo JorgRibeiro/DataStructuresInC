@@ -64,6 +64,15 @@ Raiz rbt_ajuste(Raiz raiz)
         }
     }
 
+if(raiz->raiz_esq != NULL && raiz->raiz_esq->cor == 'r' && raiz->cor == 'r'){
+        if(raiz->raiz_pai->raiz_dir != NULL && raiz->raiz_pai->raiz_dir->cor == 'r'){
+            raiz->cor = 'b';
+            raiz->raiz_pai->raiz_dir->cor = 'b';
+            if(raiz->raiz_pai->raiz_pai != NULL){
+               raiz->raiz_pai->cor = 'r';
+            }
+        }
+    }
     return raiz;
 }
 
