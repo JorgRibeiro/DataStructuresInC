@@ -13,42 +13,40 @@ Raiz rbt_inserir(Raiz raiz, int novo_valor)
         novo->raiz_dir = NULL;
         novo->raiz_pai = NULL;
         return novo;
-    }
-    else if (novo_valor > raiz->chave) // Se o novo_valor for maior que a chave
-    {
-        if (raiz->raiz_dir == NULL) // Se não existir um DIREITO nesse NO
-        {
-            Raiz novo = (Raiz)malloc(sizeof(no));
-            raiz->raiz_dir = novo;
-            novo->chave = novo_valor;
-            novo->cor = 'r'; // Define a cor do no como Vermelha
-            novo->raiz_esq = NULL;
-            novo->raiz_dir = NULL;
-            novo->raiz_pai = raiz;
-        }
-        else // Se existir um node DIREITO nesse NO
-        {
-            raiz->raiz_dir = rbt_inserir(raiz->raiz_dir, novo_valor); // Ele vai continuar a busca, ate um no vazio
-        }
-    }
-    else if ((novo_valor < raiz->chave)) // Se o novo_valor for menor que a chave
-    {
-        if (raiz->raiz_esq == NULL) // Se não existir um ESQUERDO nesse NO
-        {
-            Raiz novo = (Raiz)malloc(sizeof(no));
-            raiz->raiz_esq = novo;
-            novo->chave = novo_valor;
-            novo->cor = 'r'; // Define a cor do no como Vermelha
-            novo->raiz_esq = NULL;
-            novo->raiz_dir = NULL;
-            novo->raiz_pai = raiz;
-        }
-        else
-        {
-            raiz->raiz_esq = rbt_inserir(raiz->raiz_esq, novo_valor); // Ele vai continuar a busca, ate um no vazio
+    } else{
+        Raiz novo = (Raiz)malloc(sizeof(no));   // Cria um novo no
+        novo->chave = novo_valor;
+        novo->cor = 'r'; 
+        novo->raiz_esq = NULL;
+        novo->raiz_dir = NULL;
+
+        Raiz posicao = raiz;                    // Um ponteiro auxiliar para rodar o código
+        
+        while(1){
+            if(novo_valor > posicao->chave){
+                if(posicao->raiz_dir == NULL){
+                    posicao->raiz_dir = novo;
+                    novo->raiz_pai = posicao;
+                    break;
+                } else {
+                    posicao = posicao->raiz_dir;
+                    continue;
+                }
+            } else {
+                 if(posicao->raiz_esq == NULL){
+                    posicao->raiz_esq = novo;
+                    novo->raiz_pai = posicao;
+                    break;
+                } else {
+                    posicao = posicao->raiz_esq;
+                    continue;
+                }
+            }
         }
     }
-    raiz = rbt_ajuste(raiz);
+
+
+    
     return raiz;
 }
 
