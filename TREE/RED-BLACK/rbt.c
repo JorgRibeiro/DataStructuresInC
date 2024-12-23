@@ -63,7 +63,7 @@ Raiz rbt_ajuste(Raiz raiz, Raiz novo)
                         pai->raiz_pai = vo->raiz_pai;                                   // se vo tiver pai ele ira pegar o ponteiro do bisavo e 
                         if(vo == vo->raiz_pai->raiz_dir){                               // apontar para pai
                             vo->raiz_pai->raiz_dir = pai;
-                        } else { vo->raiz_pai->raiz_esq = pai;}
+                        } else { vo->raiz_pai->raiz_esq == pai;}
                     }else {pai->raiz_pai = NULL;}
 
                     vo->raiz_dir = NULL;
@@ -133,7 +133,7 @@ Raiz rbt_ajuste(Raiz raiz, Raiz novo)
 
                        if(vo->raiz_pai != NULL){                                        // esse bloco eh usado para determinar se vo tem pai
                         pai->raiz_pai = vo->raiz_pai;                                   // se vo tiver pai ele ira pegar o ponteiro do bisavo e 
-                            if(vo->raiz_pai->raiz_dir = vo){                            // apontar para pai
+                            if(vo->raiz_pai->raiz_dir == vo){                            // apontar para pai
                                 vo->raiz_pai->raiz_dir = pai;
                             } else  {vo->raiz_pai->raiz_esq = pai;}
                        } else{pai->raiz_pai = NULL;}
@@ -159,27 +159,23 @@ Raiz rbt_ajuste(Raiz raiz, Raiz novo)
                         Raiz vo = posicao->raiz_pai->raiz_pai;
                         Raiz pai = posicao->raiz_pai;
 
-                        vo->raiz_dir = posicao;
+                        if(vo->raiz_pai == NULL){
+                            posicao->raiz_pai = NULL;
+                        } else {
+                            if(vo->raiz_pai->raiz_esq == vo){
+                                vo->raiz_pai->raiz_esq = posicao;
+                            } else {
+                                vo->raiz_pai->raiz_dir = posicao;      
+                            }
+                        }
+                        posicao->raiz_esq = vo;
+                        posicao->raiz_pai = vo->raiz_pai;
+                        posicao->raiz_dir = pai;
+                        vo->raiz_pai = posicao;
+                        vo->raiz_dir = NULL;
                         pai->raiz_pai = posicao;
                         pai->raiz_esq = NULL;
-                        posicao->raiz_pai = vo;
-                        posicao->raiz_esq = pai;
 
-                        posicao->cor = 'b';
-                        pai->cor = 'r';
-                        vo->cor = 'r';
-
-                        if(vo->raiz_pai != NULL){                                           // esse bloco eh usado para determinar se vo tem pai
-                        posicao->raiz_pai = vo->raiz_pai;                                   // se vo tiver pai ele ira pegar o ponteiro do bisavo e 
-                        if(vo == vo->raiz_pai->raiz_dir){                               // apontar para pai
-                            vo->raiz_pai->raiz_dir = posicao;
-                        } else { vo->raiz_pai->raiz_esq = posicao;}
-                        }else {posicao->raiz_pai = NULL;}
-
-                        posicao->raiz_esq = vo;
-                        vo->raiz_esq = NULL;
-                        vo->raiz_pai = posicao;
-                       
                         if(vo == raiz){
                             return posicao;
                         }
