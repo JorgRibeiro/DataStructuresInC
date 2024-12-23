@@ -4,22 +4,18 @@
 
 Raiz rbt_inserir(Raiz raiz, int novo_valor)
 {
-    if (raiz == NULL)
-    { // Se a arvore for vazia, Inicializa a raiz
         Raiz novo = (Raiz)malloc(sizeof(no));
         novo->chave = novo_valor;
-        novo->cor = 'b'; // Define a cor da raiz como PRETA
         novo->raiz_esq = NULL;
         novo->raiz_dir = NULL;
+        novo->cor = 'r'; 
+
+    if (raiz == NULL)
+    { // Se a arvore for vazia, Inicializa a raiz
+        novo->cor = 'b'; // Define a cor da raiz como PRETA
         novo->raiz_pai = NULL;
         return novo;
     } else{
-        Raiz novo = (Raiz)malloc(sizeof(no));   // Cria um novo no
-        novo->chave = novo_valor;
-        novo->cor = 'r'; 
-        novo->raiz_esq = NULL;
-        novo->raiz_dir = NULL;
-
         Raiz posicao = raiz;                    // Um ponteiro auxiliar para rodar o código
         
         while(1){
@@ -30,7 +26,6 @@ Raiz rbt_inserir(Raiz raiz, int novo_valor)
                     break;
                 } else {
                     posicao = posicao->raiz_dir;
-                    continue;
                 }
             } else {
                  if(posicao->raiz_esq == NULL){
@@ -39,39 +34,76 @@ Raiz rbt_inserir(Raiz raiz, int novo_valor)
                     break;
                 } else {
                     posicao = posicao->raiz_esq;
-                    continue;
                 }
             }
         }
     }
 
+    raiz = rbt_ajuste(raiz, novo);
 
-    
     return raiz;
 }
 
-Raiz rbt_ajuste(Raiz raiz)
+Raiz rbt_ajuste(Raiz raiz, Raiz novo)
 {
-    if(raiz->raiz_dir != NULL && raiz->raiz_dir->cor == 'r' && raiz->cor == 'r'){
-        if(raiz->raiz_pai->raiz_esq != NULL && raiz->raiz_pai->raiz_esq->cor == 'r'){
-            raiz->cor = 'b';
-            raiz->raiz_pai->raiz_esq->cor = 'b';
-            if(raiz->raiz_pai->raiz_pai != NULL){
-               raiz->raiz_pai->cor = 'r';
+    Raiz posicao = novo;      
+
+   while(posicao != raiz){
+        if(posicao->cor == 'r' && posicao->raiz_pai->cor == 'r'){
+            if(posicao == posicao->raiz_pai->raiz_dir){
+                if(rbt_tio_E(posicao) == 1){
+                    posicao->raiz_pai->cor = 'b';
+                    posicao->raiz_pai->raiz_pai->raiz_esq->cor = 'b';
+                    if(posicao->raiz_pai->raiz_pai != raiz){
+                        posicao->raiz_pai->raiz_pai->cor = 'r';
+                    }
+                }
+            } else if(posicao == posicao->raiz_pai->raiz_esq){
+                if(rbt_tio_D(posicao) == 1){
+                    posicao->raiz_pai->cor = 'b';
+                    posicao->raiz_pai->raiz_pai->raiz_dir->cor = 'b';
+                    if(posicao->raiz_pai->raiz_pai != raiz){
+                        posicao->raiz_pai->raiz_pai->cor = 'r';
+                    }
+                }
             }
         }
+
+        posicao = posicao->raiz_pai;
+   }
+
+    return raiz;
+}
+
+int rbt_tio_E(Raiz raiz)
+{
+    if(raiz->raiz_pai->raiz_pai->raiz_esq == NULL){
+        return 0;
     }
 
-if(raiz->raiz_esq != NULL && raiz->raiz_esq->cor == 'r' && raiz->cor == 'r'){
-        if(raiz->raiz_pai->raiz_dir != NULL && raiz->raiz_pai->raiz_dir->cor == 'r'){
-            raiz->cor = 'b';
-            raiz->raiz_pai->raiz_dir->cor = 'b';
-            if(raiz->raiz_pai->raiz_pai != NULL){
-               raiz->raiz_pai->cor = 'r';
-            }
-        }
+    if(raiz->raiz_pai->raiz_pai->raiz_esq->cor == 'r'){
+        return 1;
     }
-    return raiz;
+
+     if(raiz->raiz_pai->raiz_pai->raiz_esq->cor == 'b'){
+        return 2;
+    }
+
+}
+
+int rbt_tio_D(Raiz raiz)
+{
+     if(raiz->raiz_pai->raiz_pai->raiz_dir == NULL){
+        return 0;
+    }
+
+    if(raiz->raiz_pai->raiz_pai->raiz_dir->cor == 'r'){
+        return 1;
+    }
+
+     if(raiz->raiz_pai->raiz_pai->raiz_dir->cor == 'b'){
+        return 2;
+    }
 }
 
 int rbt_quant_no_preto(Raiz raiz)
@@ -220,11 +252,11 @@ Raiz rbt_remover(Raiz raiz, int valor_removido)
             {
                 raiz->chave = rbt_maior_valor(raiz->raiz_esq)->chave;
                 raiz->raiz_esq = rbt_remover(raiz->raiz_esq, raiz->chave);
-                raiz = rbt_ajuste(raiz);
+               /* raiz = rbt_ajuste(raiz);*/
                 return raiz;
             }
         }
     }
-    raiz = rbt_ajuste(raiz);
+    /*raiz = rbt_ajuste(raiz);*/
     return raiz;
 }
