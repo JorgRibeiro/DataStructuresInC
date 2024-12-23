@@ -58,6 +58,38 @@ Raiz rbt_inserir(Raiz raiz, int novo_valor)
 
 Raiz rbt_ajuste(Raiz raiz, Raiz novo)
 {
+    Raiz posiciona = novo;
+
+    while (posiciona->raiz_pai != NULL)
+    {
+        Raiz pai = posiciona->raiz_pai;
+        Raiz vo = posiciona->raiz_pai->raiz_pai;
+
+        if(posiciona->cor == 'r' && pai->cor == 'r' ){          // quebra da regra, Pai e filho vermelhos
+            if(posiciona == pai->raiz_dir){                     // posiciona é igual ao filho direito de pai
+                Raiz Tio;                                       // Tio é criado
+                if(pai == vo->raiz_dir){                        // Pai é igual ao filho direito de vo
+                    Tio = vo->raiz_esq;                         // Tio é esquerdo de vo
+                    if(Tio == NULL){                            // rotação simples esquerda
+                        
+                    } else {
+                        Tio->cor = 'b';
+                        pai->cor = 'b';
+                        if(vo->raiz_pai != NULL){ vo->cor = 'r'; }  // se Vo não for a raiz
+                       
+                    }
+                } else {                                        // Pai é igual ao filho esquerdo de vo
+
+                }
+            } else {                                            // posiciona é igual ao filho esquerdo de pai
+
+            }
+
+
+        }
+
+        posiciona = posiciona->raiz_pai;
+    }
     
     
 
@@ -105,7 +137,6 @@ void rbt_info(Raiz raiz, int valor)
                 printf("Pai: NULL\n");
             else
                 printf("Pai: %d\n", raiz->raiz_pai->chave);
-            printf("Quant de nos pretos: %d\n", rbt_quant_no_preto(raiz->raiz_dir) + rbt_quant_no_preto(raiz->raiz_esq));
         }
     }
 }
