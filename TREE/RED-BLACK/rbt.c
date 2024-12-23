@@ -248,6 +248,9 @@ Raiz rbt_ajuste(Raiz raiz, Raiz novo)
                         pai->raiz_pai = posicao;
                         pai->raiz_esq = NULL;
 
+                        posicao->cor = 'b';
+                        vo->cor = 'r';
+
                         if (vo == raiz)
                         {
                             return posicao;
@@ -271,6 +274,8 @@ Raiz rbt_ajuste(Raiz raiz, Raiz novo)
 
     return raiz;
 }
+
+
 
 int rbt_quant_no_preto(Raiz raiz)
 {
