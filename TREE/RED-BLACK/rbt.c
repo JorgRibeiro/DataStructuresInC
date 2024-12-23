@@ -71,7 +71,10 @@ Raiz rbt_ajuste(Raiz raiz, Raiz novo)
                 if(pai == vo->raiz_dir){                        // Pai é igual ao filho direito de vo
                     Tio = vo->raiz_esq;                         // Tio é esquerdo de vo
                     if(Tio == NULL){                            // rotação simples esquerda
-                        
+                        rbt_rotacao_simples_esq(vo);
+                        if(vo == raiz){
+                            return pai;
+                        }
                     } else {
                         Tio->cor = 'b';
                         pai->cor = 'b';
@@ -79,10 +82,29 @@ Raiz rbt_ajuste(Raiz raiz, Raiz novo)
                        
                     }
                 } else {                                        // Pai é igual ao filho esquerdo de vo
+                    Tio = vo->raiz_dir;  
 
+                     if(Tio == NULL){                            // rotação simples esquerda
+                        rbt_rotacao_simples_esq(pai);
+                        rbt_rotacao_simples_dir(vo);
+                        if(vo == raiz){
+                            return posiciona;
+                        }
+                    } else {
+                        Tio->cor = 'b';
+                        pai->cor = 'b';
+                        if(vo->raiz_pai != NULL){ vo->cor = 'r'; }                                      
+                    }    
                 }
             } else {                                            // posiciona é igual ao filho esquerdo de pai
-
+                Raiz Tio;
+                if(pai == vo->raiz_dir){
+                        rbt_rotacao_simples_dir(pai);            // rotação dupla esquerda
+                        rbt_rotacao_simples_esq(vo);   
+                        if(vo == raiz){
+                            return posiciona;
+                        }    
+                }
             }
 
 
@@ -95,6 +117,66 @@ Raiz rbt_ajuste(Raiz raiz, Raiz novo)
 
     return raiz;
 }
+
+void rbt_rotacao_simples_esq(Raiz raiz)
+{
+    Raiz vo, pai;
+    vo = raiz;
+    pai = raiz->raiz_dir;
+
+    if(vo->raiz_pai == NULL){
+        pai->raiz_pai = NULL;
+    } else {
+        if(vo->raiz_pai->raiz_dir == vo){
+            vo->raiz_pai->raiz_dir = pai;
+        } else {
+            vo->raiz_pai->raiz_esq = pai;
+        }
+        pai->raiz_pai = vo->raiz_pai;
+    }
+   
+   vo->raiz_pai = pai;
+   vo->raiz_dir = pai->raiz_esq;
+   
+    if (pai->raiz_esq != NULL) {   // Atualizar o pai do antigo filho esquerdo de `pai`
+        pai->raiz_esq->raiz_pai = vo;
+    }
+
+   pai->raiz_esq = vo;
+
+   pai->cor = 'b';
+   vo->cor = 'r';
+}
+
+void rbt_rotacao_simples_dir(Raiz raiz)
+{
+    Raiz vo, pai;
+    vo = raiz;
+    pai = raiz->raiz_esq;
+
+    if(vo->raiz_pai != NULL){
+        if(vo->raiz_pai->raiz_dir == vo){
+            vo->raiz_pai->raiz_dir = pai;
+        } else {
+            vo->raiz_pai->raiz_esq = pai;
+        }
+        pai->raiz_pai = vo->raiz_pai;
+    } else {pai->raiz_pai = NULL;}
+
+    vo->raiz_pai = pai;
+    vo->raiz_esq = pai->raiz_dir;
+
+    if(pai->raiz_dir != NULL){
+        pai->raiz_dir->raiz_pai = vo;
+    }
+
+    pai->raiz_dir = vo;
+
+    pai->cor = 'b';
+    vo->cor = 'r';
+
+}
+
 
 void rbt_preorder(Raiz raiz)
 {

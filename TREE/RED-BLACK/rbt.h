@@ -16,7 +16,8 @@ Raiz rbt_inserir(Raiz raiz, int valor);                     // Inicializa a Raiz
 
 Raiz rbt_ajuste(Raiz raiz, Raiz novo);
 
-Raiz rbt_rotacao_simples_esq(Raiz pai, Raiz filho);
+void rbt_rotacao_simples_esq(Raiz raiz);
+void rbt_rotacao_simples_dir(Raiz raiz);
 
 void rbt_preorder(Raiz raiz);                               // Printa os valores na ordem: Raiz->Esquerda->Direita
 
