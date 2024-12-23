@@ -50,26 +50,18 @@ Raiz rbt_ajuste(Raiz raiz, Raiz novo)
 
    while(posicao != raiz){
         if(posicao->cor == 'r' && posicao->raiz_pai->cor == 'r'){
-            if(posicao == posicao->raiz_pai->raiz_dir){
-              
-                if(posicao->raiz_pai->raiz_pai->raiz_esq != NULL){      
-                    if(rbt_tio_E(posicao) == 1)   {                       // tio esquerdo eh vermelho  -   recolorir
-                    posicao->raiz_pai->cor = 'b';
-                    posicao->raiz_pai->raiz_pai->raiz_esq->cor = 'b';
-                    if(posicao->raiz_pai->raiz_pai != raiz){
-                        posicao->raiz_pai->raiz_pai->cor = 'r';
-                        }
-                    }
-                } else {                                                 // tio esquerdo eh preto externo  -  rotacao simples esquerda       
-                   
+            if(posicao == posicao->raiz_pai->raiz_dir){                                 // significa que posicao esta a direita de pai
+                if(posicao->raiz_pai == posicao->raiz_pai->raiz_pai->raiz_dir){         // significa que pai esta a direita de vo
+                    if(posicao->raiz_pai->raiz_pai->raiz_esq == NULL){                  // tio é um preto externo - rotacao simples
+                        
                     Raiz vo = posicao->raiz_pai->raiz_pai;
                     Raiz pai = posicao->raiz_pai;
 
                     pai->raiz_esq = vo;
-                    
-                    if(vo->raiz_pai != NULL){
-                        pai->raiz_pai = vo->raiz_pai;
-                        if(vo == vo->raiz_pai->raiz_dir){
+
+                    if(vo->raiz_pai != NULL){                                           // esse bloco eh usado para determinar se vo tem pai
+                        pai->raiz_pai = vo->raiz_pai;                                   // se vo tiver pai ele ira pegar o ponteiro do bisavo e 
+                        if(vo == vo->raiz_pai->raiz_dir){                               // apontar para pai
                             vo->raiz_pai->raiz_dir = pai;
                         } else { vo->raiz_pai->raiz_esq = pai;}
                     }else {pai->raiz_pai = NULL;}
@@ -83,53 +75,88 @@ Raiz rbt_ajuste(Raiz raiz, Raiz novo)
                     if(vo == raiz){
                         return pai;
                     }
-                }
-            } else if(posicao == posicao->raiz_pai->raiz_esq){
-                if(rbt_tio_D(posicao) == 1){                                  // tio direito eh vermelho
-                    posicao->raiz_pai->cor = 'b';
-                    posicao->raiz_pai->raiz_pai->raiz_dir->cor = 'b';
-                    if(posicao->raiz_pai->raiz_pai != raiz){
-                        posicao->raiz_pai->raiz_pai->cor = 'r';
+                    } else if(posicao->raiz_pai->raiz_pai->raiz_esq->cor == 'r'){       // tio é um vermelho - recolorir
+
+                        posicao->raiz_pai->cor = 'b';
+                        posicao->raiz_pai->raiz_pai->raiz_esq->cor = 'b';
+                        if(posicao->raiz_pai->raiz_pai != raiz){
+                            posicao->raiz_pai->raiz_pai->cor = 'r';
+                            }
+                    }
+
+
+                } else {                                                            // significa que pai esta a esquerda do vo
+                    if(posicao->raiz_pai->raiz_pai->raiz_dir == NULL){              // tio é um preto externo - rotacao dupla
+                        Raiz vo = posicao->raiz_pai->raiz_pai;
+                        Raiz pai = posicao->raiz_pai;
+
+                        vo->raiz_esq = posicao;
+                        pai->raiz_pai = posicao;
+                        pai->raiz_dir = NULL;
+                        posicao->raiz_pai = vo;
+                        posicao->raiz_esq = pai;
+
+                        posicao->cor = 'b';
+
+                        posicao->raiz_pai = vo->raiz_pai;
+                        posicao->raiz_dir = vo;
+                        vo->raiz_esq = NULL;
+                        vo->raiz_pai = posicao;
+                        vo->cor = 'r';
+
+                        if(vo == raiz){
+                            return posicao;
+                        }
+                    } else if(posicao->raiz_pai->raiz_pai->raiz_dir->cor == 'r') {       // tio é um vermelho - recolorir
+                        posicao->raiz_pai->cor = 'b';
+                        posicao->raiz_pai->raiz_pai->raiz_dir->cor = 'b';
+                        if(raiz != posicao->raiz_pai->raiz_pai){
+                            posicao->raiz_pai->raiz_pai->cor = 'r';
+                        }
                     }
                 }
+            } else {                                                                    // significa que posicao esta a esquerda de pai
+                if(posicao->raiz_pai->raiz_pai->raiz_esq == posicao->raiz_pai){         // significa que pai esta a esquerda de vo    
+                    if(posicao->raiz_pai->raiz_pai->raiz_dir == NULL){                  // tio é um preto externo - rotacao simples
+                        
+                        Raiz vo = posicao->raiz_pai->raiz_pai;
+                        Raiz pai = posicao->raiz_pai;
+
+                        pai->raiz_dir = vo;
+
+                       if(vo->raiz_pai != NULL){                                        // esse bloco eh usado para determinar se vo tem pai
+                        pai->raiz_pai = vo->raiz_pai;                                   // se vo tiver pai ele ira pegar o ponteiro do bisavo e 
+                            if(vo->raiz_pai->raiz_dir = vo){                            // apontar para pai
+                                vo->raiz_pai->raiz_dir = pai;
+                            } else  {vo->raiz_pai->raiz_esq = pai;}
+                       } else{pai->raiz_pai = NULL;}
+
+                        vo->raiz_pai = pai;
+                        vo->raiz_esq = NULL;
+
+                       pai->cor = 'b';
+                       vo->cor = 'r';
+
+                        if(vo == raiz){
+                            return pai;
+                        }
+                    }
+                }         
             }
+
+
+
+
+
         }
 
         posicao = posicao->raiz_pai;
    }
 
+
     return raiz;
 }
 
-int rbt_tio_E(Raiz raiz)
-{
-
-    if(raiz->raiz_pai->raiz_pai->raiz_esq->cor == 'r'){
-        return 1;
-    }
-
-     if(raiz->raiz_pai->raiz_pai->raiz_esq->cor == 'b'){
-        return 2;
-    }
-
-    return 0;
-
-}
-
-int rbt_tio_D(Raiz raiz)
-{
-     if(raiz->raiz_pai->raiz_pai->raiz_dir == NULL){
-        return 0;
-    }
-
-    if(raiz->raiz_pai->raiz_pai->raiz_dir->cor == 'r'){
-        return 1;
-    }
-
-     if(raiz->raiz_pai->raiz_pai->raiz_dir->cor == 'b'){
-        return 2;
-    }
-}
 
 int rbt_quant_no_preto(Raiz raiz)
 {
