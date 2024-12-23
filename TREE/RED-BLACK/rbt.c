@@ -51,15 +51,41 @@ Raiz rbt_ajuste(Raiz raiz, Raiz novo)
    while(posicao != raiz){
         if(posicao->cor == 'r' && posicao->raiz_pai->cor == 'r'){
             if(posicao == posicao->raiz_pai->raiz_dir){
-                if(rbt_tio_E(posicao) == 1){
+              
+                if(posicao->raiz_pai->raiz_pai->raiz_esq != NULL){      
+                    if(rbt_tio_E(posicao) == 1)   {                       // tio esquerdo eh vermelho  -   recolorir
                     posicao->raiz_pai->cor = 'b';
                     posicao->raiz_pai->raiz_pai->raiz_esq->cor = 'b';
                     if(posicao->raiz_pai->raiz_pai != raiz){
                         posicao->raiz_pai->raiz_pai->cor = 'r';
+                        }
+                    }
+                } else {                                                 // tio esquerdo eh preto externo  -  rotacao simples esquerda       
+                   
+                    Raiz vo = posicao->raiz_pai->raiz_pai;
+                    Raiz pai = posicao->raiz_pai;
+
+                    pai->raiz_esq = vo;
+                    
+                    if(vo->raiz_pai != NULL){
+                        pai->raiz_pai = vo->raiz_pai;
+                        if(vo == vo->raiz_pai->raiz_dir){
+                            vo->raiz_pai->raiz_dir = pai;
+                        } else { vo->raiz_pai->raiz_esq = pai;}
+                    }else {pai->raiz_pai = NULL;}
+
+                    vo->raiz_dir = NULL;
+                    vo->raiz_pai = pai;
+
+                    pai->cor = 'b';
+                    vo->cor = 'r';
+
+                    if(vo == raiz){
+                        return pai;
                     }
                 }
             } else if(posicao == posicao->raiz_pai->raiz_esq){
-                if(rbt_tio_D(posicao) == 1){
+                if(rbt_tio_D(posicao) == 1){                                  // tio direito eh vermelho
                     posicao->raiz_pai->cor = 'b';
                     posicao->raiz_pai->raiz_pai->raiz_dir->cor = 'b';
                     if(posicao->raiz_pai->raiz_pai != raiz){
@@ -77,9 +103,6 @@ Raiz rbt_ajuste(Raiz raiz, Raiz novo)
 
 int rbt_tio_E(Raiz raiz)
 {
-    if(raiz->raiz_pai->raiz_pai->raiz_esq == NULL){
-        return 0;
-    }
 
     if(raiz->raiz_pai->raiz_pai->raiz_esq->cor == 'r'){
         return 1;
@@ -88,6 +111,8 @@ int rbt_tio_E(Raiz raiz)
      if(raiz->raiz_pai->raiz_pai->raiz_esq->cor == 'b'){
         return 2;
     }
+
+    return 0;
 
 }
 
