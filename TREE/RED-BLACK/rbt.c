@@ -73,9 +73,6 @@ Raiz rbt_ajuste(Raiz raiz, Raiz novo)
                     Tio = vo->raiz_esq;                         // Tio é esquerdo de vo
                     if(Tio == NULL || Tio->cor == 'b'){                            // rotação simples esquerda
                         rbt_rotacao_simples_esq(vo);
-                        if(vo == raiz){
-                            return pai;
-                        }
                     } else {
                         Tio->cor = 'b';
                         pai->cor = 'b';
@@ -84,13 +81,10 @@ Raiz rbt_ajuste(Raiz raiz, Raiz novo)
                     }
                 } else {                                        // Pai é igual ao filho esquerdo de vo
                     Tio = vo->raiz_dir;  
-
                      if(Tio == NULL || Tio->cor == 'b'){                            // rotação simples esquerda
                         rbt_rotacao_simples_esq(pai);
                         rbt_rotacao_simples_dir(vo);
-                        if(vo == raiz){
-                            return posiciona;
-                        }
+                        if(posiciona->raiz_pai == NULL){return posiciona;}
                     } else {
                         Tio->cor = 'b';
                         pai->cor = 'b';
@@ -104,9 +98,6 @@ Raiz rbt_ajuste(Raiz raiz, Raiz novo)
                     Tio = vo->raiz_dir;                         // Tio é esquerdo de vo
                     if(Tio == NULL || Tio->cor == 'b'){                            // rotação simples esquerda
                         rbt_rotacao_simples_dir(vo);
-                        if(vo == raiz){
-                            return pai;
-                        }
                     } else {
                         Tio->cor = 'b';
                         pai->cor = 'b';
@@ -116,10 +107,8 @@ Raiz rbt_ajuste(Raiz raiz, Raiz novo)
                 } else {
                      if(Tio == NULL || Tio->cor == 'b'){
                         rbt_rotacao_simples_dir(pai);            // rotação dupla esquerda
-                        rbt_rotacao_simples_esq(vo);   
-                        if(vo == raiz){
-                            return posiciona;
-                        }       
+                        rbt_rotacao_simples_esq(vo);      
+                         if(posiciona->raiz_pai == NULL){return posiciona;}
                      } else {
                         Tio->cor = 'b';
                         pai->cor = 'b';
@@ -134,7 +123,7 @@ Raiz rbt_ajuste(Raiz raiz, Raiz novo)
     
         posiciona = posiciona->raiz_pai;
     }
-    return raiz;
+    return posiciona;
 }
 
 void rbt_rotacao_simples_esq(Raiz raiz)
