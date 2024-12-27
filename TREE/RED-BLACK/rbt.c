@@ -58,69 +58,8 @@ Raiz rbt_inserir(Raiz raiz, int novo_valor)
 
 Raiz rbt_ajuste(Raiz raiz, Raiz novo)
 {
-    Raiz posiciona = novo;
-
-    while (posiciona->raiz_pai != NULL)
-    {
-        Raiz pai = posiciona->raiz_pai;
-        Raiz vo = posiciona->raiz_pai->raiz_pai;
-
-        if(posiciona->cor == 'r' && pai->cor == 'r' ){          // quebra da regra, Pai e filho vermelhos
-            if(posiciona == pai->raiz_dir){                     // posiciona é igual ao filho direito de pai
-                Raiz Tio;                                       // Tio é criado
-                if(pai == vo->raiz_dir){                        // Pai é igual ao filho direito de vo
-                    Tio = vo->raiz_esq;                         // Tio é esquerdo de vo
-                    if(Tio == NULL || Tio->cor == 'b'){                            // rotação simples esquerda
-                        rbt_rotacao_simples_esq(vo);
-                    } else {
-                        Tio->cor = 'b';
-                        pai->cor = 'b';
-                        if(vo->raiz_pai != NULL){ vo->cor = 'r'; }  // se Vo não for a raiz                 
-                    }
-                } else if(pai == vo->raiz_esq) {                                        // Pai é igual ao filho esquerdo de vo
-                    Tio = vo->raiz_dir;  
-                     if(Tio == NULL || Tio->cor == 'b'){                // rotação dupla direita                    
-                        rbt_rotacao_simples_esq(pai);
-                        rbt_rotacao_simples_dir(vo);
-                        if(posiciona->raiz_pai == NULL){return posiciona;}
-                    } else {
-                        Tio->cor = 'b';
-                        pai->cor = 'b';
-                        if(vo->raiz_pai != NULL){ vo->cor = 'r'; }                                      
-                    }    
-                }
-            } else {                                            // posiciona é igual ao filho esquerdo de pai
-                Raiz Tio;
-                if(pai == vo->raiz_esq){
-                    Tio = vo->raiz_dir;                         // Tio é esquerdo de vo
-
-                    if(Tio == NULL || Tio->cor == 'b'){                            // rotação simples esquerda
-                        rbt_rotacao_simples_dir(vo);
-                    } else {
-                        Tio->cor = 'b';
-                        pai->cor = 'b';
-                        if(vo->raiz_pai != NULL){ vo->cor = 'r'; }  // se Vo não for a raiz
-                    }
-     
-                } else {
-                     if(Tio == NULL || Tio->cor == 'b'){        // rotação dupla esquerda
-                        rbt_rotacao_simples_dir(pai);        
-                        rbt_rotacao_simples_esq(vo);   
-                         if(posiciona->raiz_pai == NULL){return posiciona;}
-                     } else {
-                        Tio->cor = 'b';
-                        pai->cor = 'b';
-                        if(vo->raiz_pai != NULL){ vo->cor = 'r'; }  // se Vo não for a raiz
-                     }     
-            }
-
-        }
-
-    }
     
-        posiciona = posiciona->raiz_pai;
-    }
-    return posiciona;
+    return raiz;
 }
 
 void rbt_rotacao_simples_esq(Raiz raiz)
