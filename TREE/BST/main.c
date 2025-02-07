@@ -39,7 +39,7 @@ int main(int argc, char * argv[]) {
                 break;
             case 6:
             //Altura - percorre os dois lados de uma Raiz
-                printf("%d",bst_altura(arvore));
+                printf("%d",bst_altura(arvore)+1);
                 printf("\n");
                 break;
             case 7:
