@@ -13,12 +13,14 @@ int main(int argc, char * argv[]) {
 		switch(opcao) {
 				int valor;
 				case 1:
-						printf("%d\n", altura(a));
-						break;
-				case 2:
 						scanf("%d", &valor);
 						adicionar(valor, &a);
 						break;
+						
+				case 2:
+						printf("%d\n", altura(a));
+						break;
+						
 				case 3:
 						printf("%d\n", maior_elemento(a));
 						break;
