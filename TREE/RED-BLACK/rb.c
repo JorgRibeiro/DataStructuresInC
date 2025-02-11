@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "rbt.h"
+#include "rb.h"
 
 Raiz rbt_inserir(Raiz raiz, int novo_valor)
 {
