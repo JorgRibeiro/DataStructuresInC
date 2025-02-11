@@ -2,49 +2,52 @@
 #include <stdlib.h>
 #include "rb.h"
 
-int main(int argc, char *argv[])
-{
-    // Declarar uma variável do tipo árvore e inicializar como uma árvore vazia
-    Raiz arvore = NULL;
+int main(int argc, char * argv[]) {
+	arvore a;
+	int opcao;
+	inicializar(&a);
 
-    // Usando um While true para fazer um menu com switch
-    while (1)
-    {
-        int opcao;
-        int valor;
-        scanf("%d", &opcao);
-        switch (opcao)
-        {
-        // Inserir
-        case 1:
-            scanf("%d", &valor);
-            arvore = rbt_inserir(arvore, valor);
-            break;
-        case 2:
-            // Pre-order
-            rbt_preorder(arvore);
-            printf("\n");
-            break;
-        case 3:
-            break;
-        case 4:
-            break;
-        case 5:
-            break;
-        case 6:
-            // Info
-            scanf("%d", &valor);
-            rbt_info(arvore, valor);
-            break;
-        case 7:
-            break;
-        case 8:
-            break;
-        case 9:
-            break;
-        case 99:
-            // Sair
-            exit(0);
-        }
-    }
+	while(1) {
+		scanf("%d", &opcao);
+
+		switch(opcao) {
+				int valor;
+				case 1:
+						printf("%d\n", altura(a));
+						break;
+				case 2:
+						scanf("%d", &valor);
+						adicionar(valor, &a);
+						break;
+				case 3:
+						printf("%d\n", maior_elemento(a));
+						break;
+				case 4:
+						printf("%d\n", menor_elemento(a));
+						break;
+				case 5:
+						pre_order(a);
+						printf("\n");
+						break;
+				case 6:
+						in_order(a);
+						printf("\n");
+						break;
+				case 7:
+						pos_order(a);
+						printf("\n");
+						break;
+				case 8:
+						scanf("%d", &valor);
+						//remover(valor, &a);
+						break;
+				case 9:
+						imprimir(a);
+						printf("\n");
+						break;
+
+				case 99:
+						exit(0);
+		}
+	}
 }

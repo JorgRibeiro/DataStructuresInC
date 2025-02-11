@@ -3,43 +3,44 @@
 
 enum cor { VERMELHO, PRETO, DUPLO_PRETO };
 
-typedef struct no
-{
-    int chave;                                  		// Valor do no
-    enum cor cor;                                  		// Cor do no
-    struct no *esq, *dir, *pai;               			// PONTEIRO para o NO ESQUERDO, DIREITO E PAI
-                         
-}no;
+typedef int tipo_dado;
 
-typedef no * Raiz;
+typedef struct no_bst {
+	tipo_dado dado;
+	enum cor cor;
+	struct no_bst *esq, *dir, *pai;
+} no_bst;
 
-void inicializar(arvore *raiz);					// INICIALIZA a RAIZ 
-void adicionar (int valor, arvore *raiz);			// ADICIONA um NOVO no na Arvore
-void remover (int valor, arvore *raiz);'			// REMOVE um no da Arvore
+typedef no_bst * arvore;
 
-int altura(arvore raiz);					// Calcula a ALTURA da Arvore
-int maior(int a, int b);					// Compara dois numeros e retorna o MAIOR
-int maior_elemento(arvore raiz);				// Procura o NO com MAIOR valor
-int menor_elemento(arvore raiz);				// Procura o NO com MENOR valor
-void pre_order(arvore raiz);					// RAIZ -> ESQ -> DIR
-void pos_order(arvore raiz);					// ESQ ->  RAIZ -> DIR		
-void in_order(arvore raiz);					// ESQ -> DIR ->  RAIZ 	
+void inicializar(arvore *raiz);
+void adicionar (int valor, arvore *raiz);
+void remover (int valor, arvore *raiz);
 
-void imprimir_elemento(arvore raiz);				// Imprime o valor e na cor do elemento
-void imprimir(arvore raiz);					// PRE-ORDER
+int altura(arvore raiz);
+int maior(int a, int b);
+int maior_elemento(arvore raiz);
+int menor_elemento(arvore raiz);
+void pre_order(arvore raiz);
+void pos_order(arvore raiz);
+void in_order(arvore raiz);
 
-
-void ajustar(arvore *raiz, arvore elemento);			// Verifica se ha dois vermelhos seguidos e ajusta
-void reajustar(arvore *raiz, arvore elemento);			// 
-void rotacao_simples_direita(arvore *raiz, arvore pivo);	// Rotacao SIMPLES para a DIREITA
-void rotacao_simples_esquerda(arvore *raiz, arvore pivo);	// Rotacao SIMPLES para a ESQUERDA
+void imprimir_elemento(arvore raiz);
+void imprimir(arvore raiz);
 
 
-enum cor cor(arvore elemento);					// Define a cor do NO
-int eh_raiz(arvore elemento);					// Verifica se o NO eh a RAIZ
-int eh_filho_esquerdo(arvore elemento);				// Verifica se o FILHO eh do NO ESQUERDO
-arvore irmao(arvore elemento);					// Retorna o ponteiro do NO IRMAO
-arvore tio(arvore elemento);					// Retorna o ponteiro do NO RIO
-void retira_duplo_preto(arvore *raiz, arvore elemento);		//
+void ajustar(arvore *raiz, arvore elemento);
+void reajustar(arvore *raiz, arvore elemento);
+void rotacao_simples_direita(arvore *raiz, arvore pivo);
+void rotacao_simples_esquerda(arvore *raiz, arvore pivo);
+
+
+enum cor cor(arvore elemento);
+int eh_raiz(arvore elemento);
+int eh_filho_esquerdo(arvore elemento);
+arvore irmao(arvore elemento);
+arvore tio(arvore elemento);
+void retira_duplo_preto(arvore *raiz, arvore elemento);
+
 
 #endif
