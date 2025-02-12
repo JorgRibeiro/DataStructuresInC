@@ -314,7 +314,7 @@ void imprimir_elemento(arvore raiz) {
 			break;
 	}
 }
-/*
+
 void remover (int valor, arvore *raiz) {
 	arvore posicao;
 	posicao = *raiz;
@@ -349,7 +349,21 @@ void remover (int valor, arvore *raiz) {
 
 
 			//O elemento possui apenas um filho (esquerdo)
-			if() {
+			if(posicao->esq != NULL && posicao->dir == NULL) {
+				posicao->esq->cor = PRETO;
+				posicao->esq->pai = posicao->pai;
+				
+				if(eh_raiz(posicao)) {
+					*raiz = posicao->esq;
+				} else {
+					if(eh_filho_esquerdo(posicao)) {
+    					posicao->pai->esq = posicao->dir;
+					} else {
+						posicao->pai->dir = posicao->dir;
+    					}      
+				}
+                		free(posicao);   
+				break;
 					
 			}
 
@@ -381,7 +395,7 @@ void remover (int valor, arvore *raiz) {
 				else
 					posicao->pai->dir = no_null;
 				free(posicao);
-                reajustar(raiz, no_null);
+  //              reajustar(raiz, no_null);
 				break;
 				}
 			}
