@@ -103,6 +103,7 @@ void ajustar(arvore *raiz, arvore elemento){
 			if(!eh_filho_esquerdo(elemento) && eh_filho_esquerdo(elemento->pai)) {
 				rotacao_simples_esquerda(raiz, elemento->pai);
 				rotacao_simples_direita(raiz, elemento->pai);
+				
 				elemento->cor = PRETO;
 				elemento->dir->cor = VERMELHO;
 				
@@ -113,7 +114,7 @@ void ajustar(arvore *raiz, arvore elemento){
 				rotacao_simples_direita(raiz, elemento->pai);
 				rotacao_simples_esquerda(raiz, elemento->pai);
 				
-				elemento->pai->cor = PRETO;
+				elemento->cor = PRETO;
 				elemento->esq->cor = VERMELHO;
 				
 					continue;
