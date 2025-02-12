@@ -88,23 +88,34 @@ void ajustar(arvore *raiz, arvore elemento){
 			//caso 2a: rotação simples direita
 			if(eh_filho_esquerdo(elemento) && eh_filho_esquerdo(elemento->pai)) {
 				rotacao_simples_direita(raiz, elemento->pai->pai);
+				elemento->pai->cor = PRETO;
+				elemento->pai->dir->cor = VERMELHO;
 					continue;
 			}
 			//caso 2b: rotação simples esquerda
 			if(!eh_filho_esquerdo(elemento) && !eh_filho_esquerdo(elemento->pai)) {
 				rotacao_simples_esquerda(raiz, elemento->pai->pai);
+				elemento->pai->cor = PRETO;
+				elemento->pai->esq->cor = VERMELHO;
 				continue;
 			}
 			//caso 3a: rotação dupla direita
 			if(!eh_filho_esquerdo(elemento) && eh_filho_esquerdo(elemento->pai)) {
 				rotacao_simples_esquerda(raiz, elemento->pai);
 				rotacao_simples_direita(raiz, elemento->pai);
+				elemento->cor = PRETO;
+				elemento->dir->cor = VERMELHO;
+				
 					continue;
 			}
 			//caso 3b: rotação dupla esquerda
 			if(eh_filho_esquerdo(elemento) && !eh_filho_esquerdo(elemento->pai)) {
 				rotacao_simples_direita(raiz, elemento->pai);
 				rotacao_simples_esquerda(raiz, elemento->pai);
+				
+				elemento->pai->cor = PRETO;
+				elemento->esq->cor = VERMELHO;
+				
 					continue;
 			}
 
@@ -133,28 +144,30 @@ void rotacao_simples_direita(arvore *raiz, arvore pivo){
 	vo = pivo;
 	pai = pivo->esq;
 	
-	if(vo->pai != NULL){
-	if(vo->pai->dir == vo){
-            vo->pai->dir = pai;
-        } else {
-            vo->pai->esq = pai;
-        }
-        pai->pai = vo->pai;
-	}else{pai->pai = NULL;
-	*raiz = pai;}
+	if(pai == NULL || vo == NULL){return;}
+	 
+	if(vo->pai == NULL){					// verifica se vo eh a raiz
+		pai->pai = NULL;
+		*raiz = pai;
+	}else{							// verifica se vo eh filho dir ou esq
+		if(vo->pai->dir == vo){
+			vo->pai->dir = pai;
+		} else{
+			vo->pai->esq = pai;
+		}
+		pai->pai = vo->pai;
+	}
+	
 	
 	vo->pai = pai;
-    	vo->esq = pai->dir;
-
-    	if(pai->dir != NULL){
-        pai->dir->pai = vo;
-    	}
-
-    	pai->dir = vo;
+	vo->esq = pai->dir;
+	
+	if(pai->dir != NULL){
+		vo->esq->pai = vo;
+	}
+	
+	pai->dir = vo;
     	
-
-    	pai->cor = PRETO;
-    	vo->cor = VERMELHO;
 			
 }
 
@@ -163,6 +176,8 @@ void rotacao_simples_esquerda(arvore *raiz, arvore pivo) {
 	arvore vo, pai;
     	vo = pivo;
     	pai = pivo->dir;
+
+	if(pai == NULL || vo == NULL){return;}
 
     if(vo->pai == NULL){
         pai->pai = NULL;
@@ -186,8 +201,6 @@ void rotacao_simples_esquerda(arvore *raiz, arvore pivo) {
    	pai->esq = vo;
    	
 
-   	pai->cor = PRETO;
-   	vo->cor = VERMELHO;
 }
 
 /*Retorna a cor de um nó. Observe que, por definição, o null é preto*/

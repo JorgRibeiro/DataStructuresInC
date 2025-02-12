@@ -18,7 +18,8 @@ int main(int argc, char * argv[]) {
 						break;
 						
 				case 2:
-						printf("%d\n", altura(a));
+						pre_order(a);
+						printf("\n");
 						break;
 						
 				case 3:
@@ -28,8 +29,6 @@ int main(int argc, char * argv[]) {
 						printf("%d\n", menor_elemento(a));
 						break;
 				case 5:
-						pre_order(a);
-						printf("\n");
 						break;
 				case 6:
 						in_order(a);
