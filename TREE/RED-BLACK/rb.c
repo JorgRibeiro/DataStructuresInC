@@ -484,7 +484,7 @@ void reajustar(arvore *raiz, arvore elemento){
 	if(     !eh_filho_esquerdo(elemento) &&
 	        cor(irmao(elemento)) == PRETO &&
 		cor(irmao(elemento)->dir) == VERMELHO &&
-		cor(irmao(elemento)->esq) == PRETO) 
+		cor(irmao(elemento)->esq) == PRETO){
 		irmao(elemento)->cor = VERMELHO;
 		irmao(elemento)->dir->cor = PRETO;
 		rotacao_simples_esquerda(raiz, irmao(elemento));
