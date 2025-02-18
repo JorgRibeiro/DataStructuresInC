@@ -40,7 +40,7 @@ int main(int argc, char * argv[]) {
 						break;
 				case 8:
 						scanf("%d", &valor);
-						//remover(valor, &a);
+						remover(valor, &a);
 						break;
 				case 9:
 						imprimir(a);
