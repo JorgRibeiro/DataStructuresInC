@@ -304,13 +304,16 @@ void in_order(arvore raiz) {
 void imprimir_elemento(arvore raiz) {
 	switch(raiz->cor){
 		case PRETO:
-			printf("\x1b[30m[%d]\x1b[0m", raiz->dado);
+			printf("[%d B]", raiz->dado);
+			// printf("\x1b[30m[%d]\x1b[0m", raiz->dado);
 			break;
 		case VERMELHO:
-			printf("\x1b[31m[%d]\x1b[0m", raiz->dado);
+			printf("[%d R]", raiz->dado);
+			// printf("\x1b[31m[%d]\x1b[0m", raiz->dado);
 			break;
 		case DUPLO_PRETO:
-			printf("\x1b[32m[%d]\x1b[0m", raiz->dado);
+			printf("[%d BB]", raiz->dado);
+			// printf("\x1b[32m[%d]\x1b[0m", raiz->dado);
 			break;
 	}
 }
