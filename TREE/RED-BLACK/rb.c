@@ -5,7 +5,7 @@
 arvore no_null;
 
 /*
-Inicializa a árvore vazia com a raiz = null e inicializa o nó nulo duplo preto que será utilizado no método remover
+Inicializa a árvore vazia com a raiz = null e inicializa o nó nulo duplo preto que será utilizado no método remover.
 */
 void inicializar(arvore *raiz) {
 	*raiz = NULL;
