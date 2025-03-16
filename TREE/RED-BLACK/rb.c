@@ -326,7 +326,7 @@ void remover (int valor, arvore *raiz) {
 		if(valor == posicao->dado) {
 			//elemento possui dois filhos
             if(posicao->esq != NULL && posicao->dir != NULL) { 
-    			posicao->dado = maior_elemento(posicao->esq);   
+    			posicao->dado = maior_elemento(posicao->esq);
 	    		remover(posicao->dado, &(posicao->esq));
                 break;
             }
@@ -412,6 +412,7 @@ void remover (int valor, arvore *raiz) {
 
 /*Realiza a correção da árvore após a remoção de um elemento preto que não possui filhos, ou seja, elimina o nó null o duplo-preto.*/
 
+
 void reajustar(arvore *raiz, arvore elemento){
 
 	//caso 1	
@@ -424,6 +425,14 @@ void reajustar(arvore *raiz, arvore elemento){
 		return;
 	}
 
+	if(elemento->dado == (*raiz)->dado) {
+//		printf("caso 1\n");
+		elemento->cor = PRETO;
+        if(elemento == no_null) {
+            *raiz = NULL;
+		}
+		return;
+	}
 	//caso 2
 	if(  cor(elemento->pai) == PRETO &&
 		 cor(irmao(elemento)) == VERMELHO &&
@@ -454,6 +463,9 @@ void reajustar(arvore *raiz, arvore elemento){
         irmao(elemento)->cor = VERMELHO;
         retira_duplo_preto(raiz, elemento);
         reajustar(raiz, elemento->pai);
+       
+        
+   
 			return;
 	}	
 
@@ -501,6 +513,7 @@ void reajustar(arvore *raiz, arvore elemento){
 	        cor(irmao(elemento)) == PRETO &&
 		cor(irmao(elemento)->dir) == VERMELHO) {	
 		
+
 		irmao(elemento)->cor = elemento->pai->cor;
 		elemento->pai->cor = PRETO;
 		irmao(elemento)->dir->cor = PRETO;

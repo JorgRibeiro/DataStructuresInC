@@ -26,6 +26,10 @@ int main(int argc, char * argv[]) {
 						scanf("%d", &valor);
 						remover(valor, &a);
 						break;
+				case 4:
+						printf("%d",maior_elemento(a));
+						printf("\n");
+						break;
 				case 99:
 						exit(0);
 		}
