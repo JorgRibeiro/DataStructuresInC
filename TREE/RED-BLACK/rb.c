@@ -208,58 +208,6 @@ void rotacao_simples_esquerda(arvore *raiz, arvore pivo) {
 
 }
 
-void rotacao_simples_esquerda_(arvore *raiz, arvore pivo) {
-
-
-	arvore vo, pai;
-    	vo = pivo;
-    	pai = pivo->dir;
-    	
-	pre_order(vo);
-	printf("1\n");
-	
-	pre_order(vo->esq);
-	printf("2\n");
-	
-	pre_order(pai);
-   	printf("3\n");
-   	
-    if(vo->pai == NULL){
-        pai->pai = NULL;
-      //  *raiz = pai;
-   
-    } else {
-   
-        if(vo->pai->dir == vo){
-            vo->pai->dir = pai;
-        } else {
-            vo->pai->esq = pai;
-        }
-        pai->pai = vo->pai;
-    }
-   	
-   	pre_order(vo);
-	printf("1\n");
-	
-	pre_order(vo->esq);
-	printf("2\n");
-	
-	pre_order(pai);
-   	printf("3\n");
-   	
-   	
-  	 vo->pai = pai;
-   	 vo->dir = pai->esq;
-   
- 
-    	if (pai->esq != NULL) {   // Atualizar o pai do antigo filho esquerdo de `pai`
-        	pai->esq->pai = vo;
-   	 }
-
-   	pai->esq = vo;
-   	
-
-}
 
 /*Retorna a cor de um nó. Observe que, por definição, o null é preto*/
 enum cor cor(arvore elemento) {
@@ -476,7 +424,6 @@ void reajustar(arvore *raiz, arvore elemento){
 	//caso 1	
 	if(eh_raiz(elemento)) {
 	
-//		printf("caso 1\n");
 		elemento->cor = PRETO;
         if(elemento == no_null) {
             *raiz = NULL;
