@@ -1,18 +1,2 @@
-# atividade-scv
-
-<table>
-  <tr>
-    <th>Nome</th>
-    <th>Cidade natal</th>
-  </tr>
-  <tr>
-    <td>Rodrigo</td>
-    <td>Maceio</td>
-  </tr>
-  <tr>
-    <td>Jorge</td>
-    <td>Demacia</td>
-  </tr>
-    
-    
-</table>
+# DataStructuresInC
+Repositório para implementar e compartilhar estruturas de dados desenvolvidas em C. Inclui código-fonte, documentação e exemplos de uso.
